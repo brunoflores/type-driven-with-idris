@@ -1,2 +1,3 @@
 allLengths : List String -> List Nat
-allLengths xs = ?allLengths_rhs
+allLengths [] = ?allLengths_rhs_1
+allLengths (x :: xs) = ?allLengths_rhs_2
