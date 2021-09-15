@@ -19,7 +19,23 @@ data Shape = ||| A triangle, with its base length and height
            | ||| A circle, with its radius
              Circle Double
 
+%name Shape shape, shape1, shape2
+
 area : Shape -> Double
 area (Triangle base height) = 0.5 * base * height
 area (Rectangle length height) = length * height
 area (Circle radius) = pi * radius * radius
+
+-- Recursive type
+data Picture = Primitive Shape
+             | Combine Picture Picture
+             | Rotate Double Picture
+             | Translate Double Double Picture
+
+%name Picture pic, pic1, pic2
+
+pictureArea : Picture -> Double
+pictureArea (Primitive shape) = area shape
+pictureArea (Combine pic pic1) = pictureArea pic + pictureArea pic1
+pictureArea (Rotate _ pic) = pictureArea pic
+pictureArea (Translate _ _ pic) = pictureArea pic
