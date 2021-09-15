@@ -1,3 +1,3 @@
 allLengths : List String -> List Nat
 allLengths [] = []
-allLengths (word :: words) = ?allLengths_rhs_2
+allLengths (word :: words) = length word :: ?rest
