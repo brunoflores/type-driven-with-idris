@@ -33,8 +33,8 @@ parseCommand "quit" "" = Just Quit
 parseCommand _ _ = Nothing
 
 parse : (input : String) -> Maybe Command
-parse input = case span (/= ' ') input of
-                   (cmd, args) => parseCommand cmd (ltrim args)
+parse input = let (cmd, args) = span (/= ' ') input in
+                  parseCommand cmd (ltrim args)
 
 processInput : DataStore -> String -> Maybe (String, DataStore)
 processInput x y = ?processInput_rhs
