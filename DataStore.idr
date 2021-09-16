@@ -37,7 +37,9 @@ parse input = let (cmd, args) = span (/= ' ') input in
                   parseCommand cmd (ltrim args)
 
 processInput : DataStore -> String -> Maybe (String, DataStore)
-processInput x y = ?processInput_rhs
+processInput store input = case parse input of
+                                Nothing => Just ("Invalid command\n", store)
+                                Just cmd => ?processCommand
 
 main : IO ()
 main = replWith (MkData _ []) "Command: " processInput
