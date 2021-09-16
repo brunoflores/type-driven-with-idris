@@ -39,3 +39,15 @@ pictureArea (Primitive shape) = area shape
 pictureArea (Combine pic pic1) = pictureArea pic + pictureArea pic1
 pictureArea (Rotate _ pic) = pictureArea pic
 pictureArea (Translate _ _ pic) = pictureArea pic
+
+-- Generic type
+data BSTree : Type -> Type where
+  Empty : Ord e => BSTree e
+  Node : Ord e => (left : BSTree e) -> (val : e) -> (right : BSTree e) -> BSTree e
+
+total insert : e -> BSTree e -> BSTree e
+insert x Empty = Node Empty x Empty
+insert x (Node left y right) = case compare x y of
+                                    LT => Node (insert x left) y right
+                                    EQ => Node left y right
+                                    GT => Node left y (insert x right)
