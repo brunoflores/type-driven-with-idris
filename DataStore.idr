@@ -36,10 +36,15 @@ parse : (input : String) -> Maybe Command
 parse input = let (cmd, args) = span (/= ' ') input in
                   parseCommand cmd (ltrim args)
 
+processCommand : DataStore -> Command -> Maybe (String, DataStore)
+processCommand store (Add item) = Just ("ID " ++ show (size store) ++ "\n", addToStore store item)
+processCommand store (Get pos) = ?processCommand_rhs_2
+processCommand store Quit = ?processCommand_rhs_3
+
 processInput : DataStore -> String -> Maybe (String, DataStore)
 processInput store input = case parse input of
                                 Nothing => Just ("Invalid command\n", store)
-                                Just cmd => ?processCommand
+                                Just cmd => processCommand store cmd
 
 main : IO ()
 main = replWith (MkData _ []) "Command: " processInput
