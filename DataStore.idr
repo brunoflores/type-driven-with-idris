@@ -36,9 +36,11 @@ parse : (input : String) -> Maybe Command
 parse input = let (cmd, args) = span (/= ' ') input in
                   parseCommand cmd (ltrim args)
 
+getEntry : Integer -> DataStore -> Maybe (String, DataStore)
+
 processCommand : DataStore -> Command -> Maybe (String, DataStore)
 processCommand store (Add item) = Just ("ID " ++ show (size store) ++ "\n", addToStore store item)
-processCommand store (Get pos) = ?processCommand_rhs_2
+processCommand store (Get pos) = getEntry pos store
 processCommand store Quit = Nothing
 
 processInput : DataStore -> String -> Maybe (String, DataStore)
