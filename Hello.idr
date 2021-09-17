@@ -1,5 +1,9 @@
 module Main
 
+printLength : IO ()
+printLength = getLine >>= \input => let len = length input in
+                                        putStrLn (show len)
+
 main : IO ()
 main = do
   putStr "Enter your name: "
