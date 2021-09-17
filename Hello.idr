@@ -1,7 +1,8 @@
 module Main
 
 printLength : IO ()
-printLength = getLine >>= \input => let len = length input in
+printLength = putStr "Input string: " >>= \_ =>
+              getLine >>= \input => let len = length input in
                                         putStrLn (show len)
 
 main : IO ()
