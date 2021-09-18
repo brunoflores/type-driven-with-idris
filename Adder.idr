@@ -1,7 +1,7 @@
-AdderType : (numargs : Nat) -> Type
-AdderType Z = Int
-AdderType (S k) = Int -> AdderType k
+AdderType : (numargs : Nat) -> Type -> Type
+AdderType Z numType = numType
+AdderType (S k) numType = numType -> AdderType k numType
 
-adder : (numargs : Nat) -> (acc : Int) -> AdderType numargs
+adder : Num numType => (numargs : Nat) -> numType -> AdderType numargs numType
 adder 0 acc = acc
 adder (S k) acc = \next => adder k (next + acc)
