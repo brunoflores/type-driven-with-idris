@@ -1,9 +1,11 @@
 import Data.String
 
-StringOrInt : Bool -> Type
-StringOrInt False = String
-StringOrInt True = Int
+-- StringOrInt : Bool -> Type
+-- StringOrInt False = String
+-- StringOrInt True = Int
 
-valToString : (isInt : Bool) -> StringOrInt isInt -> String
-valToString False x = trim x
-valToString True x = cast x
+valToString : (isInt : Bool) -> (case isInt of
+                                      True => String
+                                      False => Int) -> String
+valToString False x = cast x
+valToString True x = trim x
