@@ -19,3 +19,14 @@ printfFmt (Number rest) acc = \i => printfFmt rest (acc ++ show i)
 printfFmt (Str rest) acc = \s => printfFmt rest (acc ++ s)
 printfFmt (Lit str rest) acc = printfFmt rest (acc ++ str)
 printfFmt End acc = acc
+
+toFormat : List Char -> Format
+toFormat [] = End
+toFormat ('%' :: 'd' :: rest) = Number (toFormat rest)
+toFormat ('%' :: 'a' :: rest) = Str (toFormat rest)
+toFormat ('%' :: rest) = Lit "%" (toFormat rest)
+toFormat (c :: rest) = case toFormat rest of
+                            Lit str rest' => Lit (strCons c str) rest'
+                            rest' => Lit (strCons c "") rest'
+
+printf : (fmt : String) -> PrintfType (toFormat (unpack fmt))
