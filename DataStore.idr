@@ -4,9 +4,16 @@ import Data.Vect
 import System.REPL
 import Data.String
 
-data Schema : Type
+infixr 5 .+.
+
+data Schema = SString
+            | SInt
+            | (.+.) Schema Schema
 
 SchemaType : Schema -> Type
+SchemaType SString = String
+SchemaType SInt = Int
+SchemaType (x .+. y) = (SchemaType x, SchemaType y)
 
 data DataStore : Type where
   MkData : (schema : Schema) ->
