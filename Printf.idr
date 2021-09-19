@@ -13,3 +13,9 @@ PrintfType (Number rest) = Int -> PrintfType rest
 PrintfType (Str rest) = String -> PrintfType rest
 PrintfType (Lit _ rest) = PrintfType rest
 PrintfType End = String
+
+printfFmt : (fmt : Format) -> (acc : String) -> PrintfType fmt
+printfFmt (Number rest) acc = \i => printfFmt rest (acc ++ show i)
+printfFmt (Str rest) acc = \s => printfFmt rest (acc ++ s)
+printfFmt (Lit str rest) acc = printfFmt rest (acc ++ str)
+printfFmt End acc = acc
