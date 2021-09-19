@@ -24,8 +24,11 @@ data DataStore : Type where
 size : DataStore -> Nat
 size (MkData _ size' _) = size'
 
--- items : (store : DataStore) -> Vect (size store) String
--- items (MkData _ items') = items'
+schema : DataStore -> Schema
+schema (MkData schema' _ _) = schema'
+
+items : (store : DataStore) -> Vect (size store) (SchemaType (schema store))
+items (MkData _ _ items') = items'
 
 -- addToStore : DataStore -> String -> DataStore
 -- addToStore (MkData _ items) newitem = MkData _ (addToData items)
