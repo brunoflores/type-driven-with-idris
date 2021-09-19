@@ -30,3 +30,4 @@ toFormat (c :: rest) = case toFormat rest of
                             rest' => Lit (strCons c "") rest'
 
 printf : (fmt : String) -> PrintfType (toFormat (unpack fmt))
+printf fmt = printfFmt _ ""
