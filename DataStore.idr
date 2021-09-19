@@ -21,8 +21,8 @@ data DataStore : Type where
            (items : Vect size (SchemaType schema)) ->
            DataStore
 
--- size : DataStore -> Nat
--- size (MkData size' _) = size'
+size : DataStore -> Nat
+size (MkData _ size' _) = size'
 
 -- items : (store : DataStore) -> Vect (size store) String
 -- items (MkData _ items') = items'
